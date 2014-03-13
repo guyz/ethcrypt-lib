@@ -2,6 +2,7 @@ var convert = require('./convert.js')
 var Crypto = require('crypto-js');
 var RIPEMD160 = Crypto.RIPEMD160;
 var SHA256 = Crypto.SHA256;
+var SHA3 = Crypto.SHA3;
 var HMAC= Crypto.algo.HMAC;
 
 /**
@@ -14,6 +15,12 @@ exports.sha256ripe160 = function (data) {
     var wordArray = RIPEMD160(SHA256(convert.bytesToWordArray(data)))
     return convert.wordArrayToBytes(wordArray)
 }
+
+exports.sha3h256 = function(data){
+    var wordArray = SHA3(convert.bytesToWordArray(data), {outputLength: 256});
+    return wordArray;
+}
+
 
 exports.HmacFromBytesToBytes = function (hasher, message, key) {
   var hmac = HMAC.create(hasher, convert.bytesToWordArray(key))

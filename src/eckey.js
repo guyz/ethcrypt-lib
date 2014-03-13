@@ -203,6 +203,12 @@ ECPubKey.prototype.getBitcoinAddress = function() {
     return new Address(util.sha256ripe160(this.toBytes()), this.version);
 }
 
+ECPubKey.prototype.getEthereumAddress = function() {
+  var bytes = util.sha3h256( this.toBytes().slice(1) );
+  return bytes.toString().slice(24);
+}
+
+
 ECKey.prototype.sign = function (hash) {
   return ecdsa.sign(hash, this.priv);
 };
